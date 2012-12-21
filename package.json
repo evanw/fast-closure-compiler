@@ -1,0 +1,9 @@
+{
+  "name": "fast-closure-compiler",
+  "description": "Make the Google Closure Compiler start faster",
+  "preferGlobal": "true",
+  "version": "0.0.1",
+  "bin": { "closure": "bin/closure" },
+  "scripts": { "install": "make install" },
+  "license": "MIT"
+}

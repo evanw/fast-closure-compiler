@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Get the package directory (OS X doesn't have readlink or realpath)
+DIR=$(python -c 'import os, sys; print os.path.dirname(os.path.realpath(sys.argv[1]))' $0)/..
+
+# The command for the server that should show up in the process list
+SERVER="java -server -Djava.library.path=$DIR/bin -cp $DIR/nailgun/nailgun.jar:$DIR/closure-compiler/compiler.jar:$DIR/bin com.martiansoftware.nailgun.NGServer"
+
+# Start the server if it's not already running
+if ! ps x | grep -v grep | grep "$SERVER" &>/dev/null; then
+  nohup $SERVER &>/dev/null &
+fi
+
+# Wait for the server to start up, then run the compiler
+for i in {1..10}; do
+  if $DIR/nailgun/ng NailgunTest `pwd` &>/dev/null; then
+    $DIR/nailgun/ng com.google.javascript.jscomp.CommandLineRunner "$@"
+    exit # forward the exit code from the compiler
+  else
+    sleep 1
+  fi
+done
+echo 'error: could not connect to the nailgun server, giving up' >&2
+exit 1
