@@ -1,24 +1,41 @@
-#!/bin/sh
+#!/usr/bin/env python
+
+import os
+import sys
+import time
+import subprocess
+
+# Use /dev/null to ignore output
+dev_null = open('/dev/null', 'w')
 
 # Get the package directory (OS X doesn't have readlink or realpath)
-DIR=$(python -c 'import os, sys; print os.path.dirname(os.path.realpath(sys.argv[1]))' $0)/..
+dir = os.path.dirname(os.path.realpath(__file__)) + '/..'
 
 # The command for the server that should show up in the process list
-SERVER="java -server -Djava.library.path=$DIR/bin -cp $DIR/nailgun/nailgun.jar:$DIR/closure-compiler/compiler.jar:$DIR/bin com.martiansoftware.nailgun.NGServer"
+server = [
+  'java',
+  '-server',
+  '-Djava.library.path=' + dir + '/bin',
+  '-cp',
+  dir + '/nailgun/nailgun.jar:' +
+  dir + '/closure-compiler/compiler.jar:' +
+  dir + '/bin',
+  'com.martiansoftware.nailgun.NGServer'
+]
 
 # Start the server if it's not already running
-if ! ps x | grep -v grep | grep "$SERVER" &>/dev/null; then
-  nohup $SERVER &>/dev/null &
-fi
+if subprocess.check_output(['ps', 'x']).find(' '.join(server)) < 0:
+  subprocess.Popen(['nohup'] + server, stdout=dev_null, stderr=dev_null)
 
 # Wait for the server to start up, then run the compiler
-for i in {1..10}; do
-  if $DIR/nailgun/ng NailgunTest `pwd` &>/dev/null; then
-    $DIR/nailgun/ng com.google.javascript.jscomp.CommandLineRunner "$@"
-    exit # forward the exit code from the compiler
-  else
-    sleep 1
-  fi
-done
-echo 'error: could not connect to the nailgun server, giving up' >&2
-exit 1
+for i in range(10):
+  # Try to set the current directory
+  if subprocess.call([dir + '/nailgun/ng', 'NailgunTest', os.getcwd()], stdout=dev_null, stderr=dev_null):
+    # Not ready yet
+    time.sleep(1)
+  else:
+    # Forward the exit code from the compiler
+    sys.exit(subprocess.call([dir + '/nailgun/ng', 'com.google.javascript.jscomp.CommandLineRunner'] + sys.argv[1:]))
+
+sys.stderr.write('error: could not connect to the nailgun server, giving up\n')
+sys.exit(1)
