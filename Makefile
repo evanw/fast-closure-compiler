@@ -13,7 +13,7 @@ closure-compiler:
 
 nailgun:
 	rm -fr temp
-	svn co http://nailgun.svn.sourceforge.net/svnroot/nailgun/trunk@21 temp && cd temp/nailgun && ant
+	svn co http://svn.code.sf.net/p/nailgun/code/trunk@21 temp && cd temp/nailgun && ant
 	mkdir nailgun
 	mv temp/nailgun/dist/nailgun-0.7.1.jar nailgun/nailgun.jar
 	mv temp/nailgun/ng nailgun/ng
