@@ -1,7 +1,14 @@
+UNAME := $(shell uname -s)
+INCLUDE_PATH=/usr/lib/jvm/java-6-openjdk/include/
+
+ifeq ($(UNAME),Darwin)
+	INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Headers/
+endif
+
 install: bin/libNailgunTest.jnilib closure-compiler nailgun
 
 bin/libNailgunTest.jnilib:
-	cd bin && javac NailgunTest.java && gcc NailgunTest.c -shared -o libNailgunTest.jnilib -I/System/Library/Frameworks/JavaVM.framework/Headers/
+	cd bin && javac NailgunTest.java && gcc NailgunTest.c -shared -fPIC -o libNailgunTest.jnilib -I$(INCLUDE_PATH)
 
 closure-compiler:
 	rm -fr temp
@@ -13,8 +20,13 @@ closure-compiler:
 
 nailgun:
 	rm -fr temp
-	svn co http://nailgun.svn.sourceforge.net/svnroot/nailgun/trunk@21 temp && cd temp/nailgun && ant
+	git clone https://github.com/martylamb/nailgun temp && cd temp && mvn install && make
 	mkdir nailgun
-	mv temp/nailgun/dist/nailgun-0.7.1.jar nailgun/nailgun.jar
-	mv temp/nailgun/ng nailgun/ng
+	mv temp/nailgun-server/target/nailgun-server-0.9.2-SNAPSHOT.jar nailgun/nailgun.jar
+	mv temp/ng nailgun/ng
 	rm -fr temp
+
+.PHONY: clean
+clean:
+	rm -rf temp nailgun closure-compiler
+
