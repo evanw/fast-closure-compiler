@@ -4,6 +4,8 @@ This gets around the long startup time of [Google Closure Compiler](https://deve
 
 Installation:
 
+if you don't have ant installed, install ant first (to be able to build nailgun), on OSX with `brew install ant`
+
     npm install fast-closure-compiler
 
 Usage:
