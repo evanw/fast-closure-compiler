@@ -6,7 +6,7 @@ bin/libNailgunTest.jnilib:
 closure-compiler:
 	rm -fr temp
 	mkdir temp
-	cd temp && curl -O http://dl.google.com/closure-compiler/compiler-latest.zip && unzip compiler-latest.zip
+	cd temp && curl -O http://dl.google.com/closure-compiler/compiler-20131014.zip && unzip compiler-20131014.zip
 	mkdir closure-compiler
 	mv temp/compiler.jar closure-compiler
 	rm -fr temp
