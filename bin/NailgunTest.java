@@ -5,7 +5,7 @@ public class NailgunTest {
     // Need to set the current working directory for the nailgun server process.
     // Note that this is not threadsafe. Doing this correctly requires modifying
     // the Closure Compiler source itself to use the Nailgun NGContext API.
-    System.loadLibrary("NailgunTest");
+    System.load(NailgunTest.class.getResource("/libNailgunTest.jnilib").getFile().toString());
     new NailgunTest().chdir(args[0]);
     System.setProperty("user.dir", args[0]);
 

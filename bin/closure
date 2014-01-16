@@ -9,7 +9,7 @@ import subprocess
 dev_null = open('/dev/null', 'w')
 
 # Get the package directory (OS X doesn't have readlink or realpath)
-dir = os.path.dirname(os.path.realpath(__file__)) + '/..'
+dir = os.path.abspath(os.path.dirname(os.path.realpath(__file__))) + '/..'
 
 # The command for the server that should show up in the process list
 server = [
@@ -24,7 +24,10 @@ server = [
 ]
 
 # Start the server if it's not already running
-if subprocess.check_output(['ps', 'x']).find(' '.join(server)) < 0:
+def check_output():
+  return subprocess.Popen(['ps','x'], stdout=subprocess.PIPE).communicate()[0]
+
+if check_output().find(' '.join(server)) < 0:
   subprocess.Popen(['nohup'] + server, stdout=dev_null, stderr=dev_null)
 
 # Wait for the server to start up, then run the compiler
