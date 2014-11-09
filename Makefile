@@ -1,8 +1,7 @@
 install: bin/libNailgunTest.jnilib closure-compiler nailgun
 
 bin/libNailgunTest.jnilib:
-	cd bin && javac NailgunTest.java && gcc NailgunTest.c -shared -o libNailgunTest.jnilib -I/System/Library/Frameworks/JavaVM.framework/Headers/
-
+	cd bin && javac NailgunTest.java && gcc NailgunTest.c -shared -o libNailgunTest.jnilib -I${JAVA_HOME}/include -I${JAVA_HOME}/include/darwin
 closure-compiler:
 	rm -fr temp
 	mkdir temp
