@@ -21,4 +21,4 @@ nailgun:
 	rm -fr temp
 
 clean:
-	rm -rf bin/libNailgunTest.jnilib bin/libNailgunTest.class closure-compiler nailgun temp
+	rm -rf bin/libNailgunTest.jnilib bin/NailgunTest.class closure-compiler nailgun temp
