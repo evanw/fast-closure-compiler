@@ -1,7 +1,18 @@
-install: bin/libNailgunTest.jnilib closure-compiler nailgun
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	OUTFILE = libNailgunTest.so
+	CCFLAGS = -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
+endif
+ifeq ($(UNAME_S),Darwin)
+	OUTFILE = libNailgunTest.jnilib
+	CCFLAGS = -I${JAVA_HOME}/include -I${JAVA_HOME}/include/darwin
+endif
 
-bin/libNailgunTest.jnilib:
-	cd bin && javac NailgunTest.java && gcc NailgunTest.c -shared -o libNailgunTest.jnilib -I${JAVA_HOME}/include -I${JAVA_HOME}/include/darwin
+install: bin/$(OUTFILE) closure-compiler nailgun
+
+bin/$(OUTFILE):
+	cd bin && javac NailgunTest.java && gcc NailgunTest.c -shared -o $(OUTFILE) $(CCFLAGS)
+
 closure-compiler:
 	rm -fr temp
 	mkdir temp
@@ -21,4 +32,4 @@ nailgun:
 	rm -fr temp
 
 clean:
-	rm -rf bin/libNailgunTest.jnilib bin/libNailgunTest.class closure-compiler nailgun temp
+	rm -rf bin/$(OUTFILE) bin/NailgunTest.class closure-compiler nailgun temp
