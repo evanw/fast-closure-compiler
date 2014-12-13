@@ -7,5 +7,13 @@
       "fastclosure": "bin/closure"
   },
   "scripts": { "install": "make install" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teppeis/fast-closure-compiler2"
+  },
+  "author": "teppeis@gmail.com",
+  "keywords": [
+    "closure compiler"
+  ],
   "license": "MIT"
 }
