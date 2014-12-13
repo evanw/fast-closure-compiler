@@ -6,13 +6,17 @@ This gets around the long startup time of [Google Closure Compiler](https://deve
 ## Installation:
 
 * Required: `gcc` and `mvn`
-* Environment: Mac OS and Linux
+* Supported environment: Mac OS and Linux
 
-    npm install fast-closure-compiler2
+```console
+$ npm install fast-closure-compiler2
+```
 
 ## Usage:
 
-    fastclosure --js script.js --js_output_file script.min.js
+```console
+$ fastclosure --js script.js --js_output_file script.min.js
+```
 
 ## fast-closure-compiler2 vs. fast-closure-compiler
 
