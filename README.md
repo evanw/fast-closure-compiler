@@ -5,6 +5,9 @@ This gets around the long startup time of [Google Closure Compiler](https://deve
 
 ## Installation:
 
+* Required: `gcc` and `mvn`
+* Environment: Mac OS and Linux
+
     npm install fast-closure-compiler2
 
 ## Usage:
