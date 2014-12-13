@@ -21,4 +21,3 @@ The advantages are:
 * Support Mac OS 10.9 and 10.10
 * Support Linux environment in addition to Mac OS
 * Expose `fastclosure` as global command instead of `closure`
-* Now maintena
