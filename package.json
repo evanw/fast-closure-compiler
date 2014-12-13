@@ -2,7 +2,7 @@
   "name": "fast-closure-compiler2",
   "description": "Make the Google Closure Compiler start faster",
   "preferGlobal": "true",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bin": {
       "fastclosure": "bin/closure"
   },
