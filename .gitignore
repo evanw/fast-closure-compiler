@@ -1,4 +1,6 @@
-/bin/libNailgunTest.jnilib
-/bin/NailgunTest.class
-/closure-compiler/
-/nailgun/
+bin/libNailgunTest.*
+bin/NailgunTest.class
+closure-compiler/
+nailgun/
+temp/
+test/result/

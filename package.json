@@ -1,9 +1,22 @@
 {
-  "name": "fast-closure-compiler",
+  "name": "fast-closure-compiler2",
   "description": "Make the Google Closure Compiler start faster",
   "preferGlobal": "true",
-  "version": "0.0.1",
-  "bin": { "closure": "bin/closure" },
-  "scripts": { "install": "make install" },
+  "version": "0.1.2",
+  "bin": {
+    "fastclosure": "bin/closure"
+  },
+  "scripts": {
+    "install": "make install",
+    "test": "rm -rf test/result && bin/closure --js test/input.js --js_output_file test/result/output.js && diff test/expected.js test/result/output.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teppeis/fast-closure-compiler2"
+  },
+  "author": "teppeis@gmail.com",
+  "keywords": [
+    "closure compiler"
+  ],
   "license": "MIT"
 }
