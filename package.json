@@ -4,9 +4,12 @@
   "preferGlobal": "true",
   "version": "0.1.2",
   "bin": {
-      "fastclosure": "bin/closure"
+    "fastclosure": "bin/closure"
   },
-  "scripts": { "install": "make install" },
+  "scripts": {
+    "install": "make install",
+    "test": "rm -rf test/result && bin/closure --js test/input.js --js_output_file test/result/output.js && diff test/expected.js test/result/output.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/teppeis/fast-closure-compiler2"
