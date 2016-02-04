@@ -24,11 +24,11 @@ closure-compiler:
 nailgun:
 	rm -fr temp
 	mkdir temp
-	cd temp && curl -OL https://github.com/martylamb/nailgun/archive/nailgun-all-0.9.1.zip && unzip nailgun-all-0.9.1.zip
-	cd temp/nailgun-nailgun-all-0.9.1 && make ng && cd nailgun-server && mvn package
+	cd temp && curl -OL https://github.com/martylamb/nailgun/archive/master.zip && unzip master.zip
+	cd temp/nailgun-master && make ng && cd nailgun-server && mvn package
 	mkdir nailgun
-	mv temp/nailgun-nailgun-all-0.9.1/nailgun-server/target/nailgun-server-0.9.1.jar nailgun/nailgun.jar
-	mv temp/nailgun-nailgun-all-0.9.1/ng nailgun/ng
+	mv temp/nailgun-master/nailgun-server/target/nailgun-server-0.9.2-SNAPSHOT.jar nailgun/nailgun.jar
+	mv temp/nailgun-master/ng nailgun/ng
 	rm -fr temp
 
 clean:
